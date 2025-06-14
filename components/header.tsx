@@ -16,35 +16,42 @@ import {
 export default function Header() {
 
 
-
     return (
 
         <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
 
-            <nav className=" mx-auto px-4 h-16 flex items-center justify-between">
+            <nav className=" mx-auto px-4 h-18 flex items-center justify-between">
 
-                <div className="flex items-center" >
+                <div className="flex items-center space-x-2" >
 
                     <div>
                         <Link href="/" >
-                            <Image src="/logo.png" alt="Logo" width={200} height={60} className="h-14 py-1 w-auto object-contain " />
+                            <div className="relative h-16 w-40 md:w-48">
+                                <Image
+                                    src="/logo.png"
+                                    alt="Logo"
+                                    fill
+                                    className="object-contain"
+                                    priority
+                                />
+                            </div>
 
                         </Link>
 
                     </div>
 
-                    <div className="flex items-center space-x-2 " >
+                    <div className="flex items-center space-x-2 mt-1 " >
                         <Link href="/dashboard">
                             <Button variant="outline" className="cursor-pointer" >
                                 <LayoutDashboard />
-                                <span className="hidden md:block" >   Industry Insights </span>
+                                <span className="hidden md:block" > Industry Insights </span>
 
                             </Button>
                         </Link>
 
                         <DropdownMenu >
                             <DropdownMenuTrigger asChild>
-                                <Button>
+                                <Button variant="outline" >
                                     <StarsIcon />
                                     <span className="hidden md:block px-0.5 "> Growth Tools </span>
                                     <ChevronDown />
