@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import Header from "@/components/header";
+
 import { dark } from '@clerk/themes'
 
 import {
@@ -13,6 +13,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
+import Header from "@/components/header";
 
 
 // const geistSans = Geist({
