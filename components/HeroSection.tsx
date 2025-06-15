@@ -32,7 +32,7 @@ export default function HeroSection() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -40,7 +40,7 @@ export default function HeroSection() {
     <section className="w-full pt-36 md:pt-48 pb-10">
       <div className="space-y-6 text-center">
         <div className="space-y-6 mx-auto">
-          <h1 className="text-5xl font-bold md:text-7xl  gradient-title animate-gradient">
+          <h1 className="text-4xl font-bold md:text-7xl  gradient-title animate-gradient">
             Your AI Career Coach for
             <br />
             Professional Success
@@ -60,7 +60,7 @@ export default function HeroSection() {
          
         </div>
 
-        <div className="hero-image-wrapper mt-5 md:mt-0">
+        <div className="hero-image-wrapper mx-2 md:mx-0 mt-5 md:mt-0">
           <div ref={imageRef} className="hero-image">
             <Image
               src="/banner2.png"
