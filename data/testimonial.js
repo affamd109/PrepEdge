@@ -1,25 +1,25 @@
 export const testimonial = [
   {
     quote:
-      "The AI-powered interview prep was a game-changer. Landed my dream job at a top tech company!",
-    author: "Sarah Chen",
-    image: "https://randomuser.me/api/portraits/women/75.jpg",
+      "PrepEdge's AI-driven interview prep gave me the edge I needed — I finally cracked my dream role in tech!",
+    author: "Shreya Kapoor",
+    image: "/women.jpg",
     role: "Software Engineer",
     company: "Tech Giant Co.",
   },
   {
     quote:
-      "The industry insights helped me pivot my career successfully. The salary data was spot-on!",
-    author: "Michael Rodriguez",
-    image: "https://randomuser.me/api/portraits/men/75.jpg",
+      "PrepEdge's real-time insights helped me confidently switch careers — and the salary benchmarks were incredibly accurate.",
+    author: "Rahul Yadav",
+    image: "/man.jpg",
     role: "Product Manager",
     company: "StartUp Inc.",
   },
   {
     quote:
-      "My resume's ATS score improved significantly. Got more interviews in two weeks than in six months!",
-    author: "Priya Patel",
-    image: "https://randomuser.me/api/portraits/women/74.jpg",
+      "Thanks to PrepEdge, my resume finally passed ATS checks — I got more callbacks in two weeks than ever before.",
+    author: "Shruti Sharma",
+    image: "/women2.jpg",
     role: "Marketing Director",
     company: "Global Corp",
   },

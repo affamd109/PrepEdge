@@ -3,17 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { ChevronDown, FileText, GraduationCap, LayoutDashboard, PenBox, StarsIcon } from "lucide-react";
+import { checkUser } from "@/lib/checkUser";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
 
-export default function Header() {
+
+export default async function Header ()  {
+    await checkUser();;
+
+
 
 
     return (

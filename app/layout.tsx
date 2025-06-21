@@ -56,10 +56,10 @@ export default function RootLayout({ children,}: Readonly<{ children: React.Reac
 
           <main className="min-h-screen" > {children}  </main>
 
-{/* 
-          <footer className="bg-muted/50 py-12" >
-           <div className="container mx-auto px-4 text-center" > <p> PrepEdge </p> </div> 
-            </footer> */}
+
+          <footer className="bg-black py-12" >
+           <div className="container mx-auto px-4 text-center" > <p>&#169; PrepEdge </p> </div> 
+            </footer>
 
 
         </ThemeProvider>
