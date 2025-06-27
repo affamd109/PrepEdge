@@ -7,6 +7,7 @@ export default async function IndustryInsightsPage() {
         if(!isOnboarded){
             redirect('/onboarding');;
         }
+        
     return (
         <>
 

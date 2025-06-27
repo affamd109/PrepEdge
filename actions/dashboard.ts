@@ -29,13 +29,19 @@ export const generateAIInsights = async(industry : string) =>{
           Include at least 5 skills and trends.
         `;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const rawText = await response.text();
-        const cleanedText = rawText.replace(/```(?:json)?\n?/g, "").trim();
-
-        return JSON.parse(cleanedText);
-
+       try {
+         const result = await model.generateContent(prompt);
+         const response = await result.response;
+         const rawText = await response.text();
+         const cleanedText = rawText.replace(/```(?:json)?\n?/g, "").trim();
+ 
+         return JSON.parse(cleanedText);
+ 
+       } catch (error : any) {
+        throw new Error("Gemini API processing failed" , error.message);
+        
+        
+       }
 }
 
 

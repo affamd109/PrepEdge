@@ -2,37 +2,71 @@
 
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { use } from "react";
+import { generateAIInsights } from "./dashboard";
 
-export  async function updateUser(data : any) {
+export async function updateUser(data : any) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
 
-    const {userId} = await auth();
+  const user = await db.user.findUnique({
+    where: { clerkUserId: userId }, 
+  });
 
-    if(!userId) {
-        throw new Error("User not authenticated");
-    }
+  if (!user) throw new Error("User not found");
 
-    const user = await db.user.findUnique({
-        where: {
-            clerkUserId: userId
+  try {
+    // Start a transaction to handle both operations
+    const result = await db.$transaction(
+      async (tx) => {
+        // First check if industry exists
+        let industryInsight = await tx.industryInsight.findUnique({
+          where: {
+            industry: data.industry,
+          },
+        });
+
+        // If industry doesn't exist, create it with default values
+        if (!industryInsight) {
+          const insights = await generateAIInsights(data.industry);
+
+          industryInsight = await db.industryInsight.create({
+            data: {
+              industry: data.industry,
+              ...insights,
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            },
+          });
         }
-    })
 
-    if(!user) {
-        throw new Error("User not found");
-        
-    }
+        // Now update the user
+        const updatedUser = await tx.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            industry: data.industry,
+            experience: data.experience,
+            bio: data.bio,
+            skills: data.skills,
+          },
+        });
 
-    //Now as user is found , we can conect to the database
+        return { updatedUser, industryInsight };
+      },
+      {
+        timeout: 10000, // default: 5000
+      }
+    );
 
-    try {
-        
-    } catch (error) {
-        
-    }
+    revalidatePath("/");
+    return {success : true , ...result}
 
-
-
+  } catch (error : any) {
+    console.error("Error updating user and industry:", error.message);
+    throw new Error("Failed to update profile");
+  }
 }
 
 export async function getUserOnboardingStatus() {
