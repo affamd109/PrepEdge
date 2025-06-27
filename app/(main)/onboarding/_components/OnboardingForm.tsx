@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { onboardingSchema } from "@/app/lib/schemas";
 import { z } from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -14,6 +14,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import useFetch from "@/hooks/use-fetch";
 import { updateUser } from "@/actions/user";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export default function OnboardingForm({ industries }: { industries: any }) {
 
@@ -31,6 +33,7 @@ export default function OnboardingForm({ industries }: { industries: any }) {
     const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
     const router = useRouter(); //This helps us navigate to different pages
 
+    //Using my custom hook : 
     const {data : updateResult , loading : updateLoading , func : updateUserfn } = useFetch(updateUser);
 
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
@@ -42,7 +45,36 @@ export default function OnboardingForm({ industries }: { industries: any }) {
     const onSubmit = async(values : onboardingFormData  ) =>{
         console.log(values);
 
+    try {
+        const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/ /g,"-")}`
+    
+        await updateUserfn({...values , industry : formattedIndustry});
+    
+    } catch (error) {
+        console.log("Onboarding error" , error);
+        
     }
+
+    }
+
+
+    // useEffect(() =>{
+
+    //     if(updateResult?.success && !updateLoading){
+    //         toast.success("Profile completed successfully")
+    //         router.push("/dashboard");
+    //         // router.refresh();
+            
+    //     }
+
+
+    // } , [updateResult , updateLoading])
+
+
+
+
+
+
 
 
     return (
@@ -178,7 +210,15 @@ export default function OnboardingForm({ industries }: { industries: any }) {
               )}
             </div>
 
-            <Button type="submit" className="w-full" >Complete profile</Button>
+            <Button type="submit" className="w-full" disabled={updateLoading} >
+                {
+                    updateLoading ? (<>
+                    <Loader2 className=" mr-2 h-4 w-4 animate-spin" />
+                    Saving...
+                    </>) : ("Complete profile")
+                }
+                
+               </Button>
 
 
                     </form>
