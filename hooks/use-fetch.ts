@@ -33,4 +33,5 @@ function useFetch<T, Args extends any[]>( cb: (...args: Args) => Promise<T>) {
   return { data, loading, error, func, setData };
 }
 
+
 export default useFetch;
