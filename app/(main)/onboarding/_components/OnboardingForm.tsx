@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import useFetch from "@/hooks/use-fetch";
+import { updateUser } from "@/actions/user";
 
 export default function OnboardingForm({ industries }: { industries: any }) {
 
@@ -29,6 +31,8 @@ export default function OnboardingForm({ industries }: { industries: any }) {
     const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
     const router = useRouter(); //This helps us navigate to different pages
 
+    const {data : updateResult , loading : updateLoading , func : updateUserfn } = useFetch(updateUser);
+
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
         resolver: zodResolver(onboardingSchema)
     })
@@ -39,6 +43,8 @@ export default function OnboardingForm({ industries }: { industries: any }) {
         console.log(values);
 
     }
+
+
 
 
     return (

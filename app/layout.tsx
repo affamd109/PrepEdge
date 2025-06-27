@@ -14,6 +14,7 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
 
 
 // const geistSans = Geist({
@@ -55,6 +56,8 @@ export default function RootLayout({ children,}: Readonly<{ children: React.Reac
           <Header/>
 
           <main className="min-h-screen" > {children}  </main>
+
+          <Toaster richColors />
 
 
           <footer className="bg-black py-12" >
