@@ -73,7 +73,6 @@ export default function OnboardingForm({ industries }: { industries: any }) {
                                     setValue("industry", value);
                                     setSelectedIndustry(industries.find((ind: Industry) => ind.id === value))
                                     setValue("subIndustry", "");
-
                                 }
 
                                 } >
