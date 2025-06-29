@@ -1,12 +1,14 @@
 import { Suspense } from "react";
-import {BarLoader} from "react-spinners"
+import { BarLoader } from "react-spinners"
 
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
-    return (
-         <div className="px-5">
+  
+  return (
+
+    <div className="min-h-screen">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-6xl font-bold gradient-title">Industry Insights</h1>
+        <h1 className="text-6xl font-bold ">Industry Insights</h1>
       </div>
 
       {/* Suspense : Lets you display a fallback until its children have finished loading. */}
@@ -16,8 +18,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         {children}
       </Suspense>
     </div>
-       
-    );
+
+  );
 }
 
 
