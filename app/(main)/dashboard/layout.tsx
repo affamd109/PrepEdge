@@ -12,8 +12,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       {/* Suspense : Lets you display a fallback until its children have finished loading. */}
 
       <Suspense
-        fallback={<BarLoader className="mt-4" width={"100%"} color="gray" />}
-      >
+        fallback={<BarLoader className="mt-4" width={"100%"} color="gray" />}>
         {children}
       </Suspense>
     </div>
