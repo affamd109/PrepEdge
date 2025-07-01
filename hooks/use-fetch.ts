@@ -7,7 +7,7 @@ T: The type of data that your fetch function will return (e.g., a User, or a lis
 Args: The type of arguments that your function accepts (e.g., ["123"] if you're passing an ID)
 Promise<T>: means the callback returns a Promise that resolves to type T (e.g., User, Post, etc.)*/
 
-function useFetch<T, Args extends any[]>( cb: (...args: Args) => Promise<T>) {
+export default function useFetch<T, Args extends any[]>( cb: (...args: Args) => Promise<T>) {
 
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,4 +34,4 @@ function useFetch<T, Args extends any[]>( cb: (...args: Args) => Promise<T>) {
 }
 
 
-export default useFetch;
+

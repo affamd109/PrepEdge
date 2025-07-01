@@ -1,19 +1,26 @@
 export type SalaryRange = {
-    max : number;
+    max: number;
     min: number;
-    median : number;
-    location : string ;
-    role : string
+    median: number;
+    location: string;
+    role: string
 };
 
 export type Insights = {
-    salaryRanges : SalaryRange[];
-    growthRate : number;
+    salaryRanges: SalaryRange[];
+    growthRate: number;
     demandLevel: string;
-    topSkills : string[];
-    marketOutlook : string;
-    keyTrends : string[];
+    topSkills: string[];
+    marketOutlook: string;
+    keyTrends: string[];
     recommendedSkills: string[];
     nextUpdate: string;
 
 };
+
+export type QuizQuestions = {
+    question: string;
+    options: [string, string, string, string];
+    correctAnswer: string;
+    explanation: string;
+}
