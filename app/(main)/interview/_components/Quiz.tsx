@@ -46,6 +46,8 @@ export default function Quiz(){
   );
 }
 
+const question = quizData[currentQuestion];
+
 
     return (
         <div>
