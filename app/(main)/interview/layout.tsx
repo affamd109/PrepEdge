@@ -4,9 +4,11 @@ import { SparklesCore } from "@/components/ui/sparkles"; // adjust path as neede
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-         
+    <div className="px-5">
      
+
+     
+
       {/* Main Content */}
       <Suspense fallback={<BarLoader className="mt-4" width={"100%"} color="gray" />}>
         {children}

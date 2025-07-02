@@ -2,7 +2,7 @@ import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserBut
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { ChevronDown, FileText, GraduationCap, LayoutDashboard, PenBox, StarsIcon } from "lucide-react";
+import { Brain, ChevronDown, FileText, GraduationCap, LayoutDashboard, PenBox, StarsIcon } from "lucide-react";
 import { checkUser } from "@/lib/checkUser";
 import {
     DropdownMenu,
@@ -54,7 +54,7 @@ export default async function Header ()  {
 
                         <DropdownMenu >
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" >
+                                <Button className="cursor-pointer" variant="outline" >
                                     <StarsIcon />
                                     <span className="hidden md:block px-0.5 "> Growth Tools </span>
                                     <ChevronDown />
@@ -65,14 +65,15 @@ export default async function Header ()  {
                             <DropdownMenuContent>
 
                                 <DropdownMenuItem asChild >
-                                    <Link href="/resume" className="flex items-center space-x-2" >
+                                    <Link href="/resume" className="flex items-center cursor-pointer space-x-2" >
                                         <FileText />
                                         <span>Resume Builder</span>
 
                                     </Link>
                                 </DropdownMenuItem>
 
-                                <DropdownMenuItem> <Link href="/coverletter" className="flex items-center space-x-2" >
+                                <DropdownMenuItem>
+                                     <Link href="/coverletter" className="flex items-center space-x-2" >
                                     <PenBox />
                                     <span>Cover Letter Builder</span>
 
@@ -81,9 +82,18 @@ export default async function Header ()  {
                                 <DropdownMenuItem>
                                     <Link href="/interview" className="flex items-center space-x-2" >
                                         <GraduationCap />
-                                        <span>Interview Prep</span>
+                                        <span>Your Progress</span>
 
                                     </Link>
+                                </DropdownMenuItem>
+
+                                <DropdownMenuItem>
+                                    <Link href="/interview/mock" className="flex items-center space-x-2" >
+                                    <Brain/>
+                                    <span>Take a Quiz</span>
+                                    
+                                    </Link>
+                                    
                                 </DropdownMenuItem>
 
                             </DropdownMenuContent>
