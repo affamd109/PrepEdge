@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/lib/prisma";
-import { QuizQuestions } from "@/lib/types";
+import { Assessment, QuizQuestions, QuizResults } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
@@ -56,7 +56,7 @@ export async function generateQuiz(){
 
      try {
         const prompt = `
-       Generate 10 technical interview questions for a ${
+       Generate 2 technical interview questions for a ${
          user.industry
        } professional${
        user.skills?.length ? ` with expertise in ${user.skills.join(", ")}` : ""
@@ -191,7 +191,39 @@ let wrongQuestionsText = "";
     
    }
 
-
 }
 
 
+export async function getAssessments(): Promise<Assessment[]> {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await db.user.findUnique({
+    where: {
+      clerkUserId: userId,
+    },
+  });
+
+  if (!user) throw new Error("User not found");
+
+  try {
+    const rawAssessments = await db.assessment.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    // HERE is where you transform raw Prisma objects into your Assessment type
+    const assessments: Assessment[] = rawAssessments.map((a) => ({ ...a,  questions: a.questions as QuizResults[],
+      improvementTip: a.improvementTip ?? undefined,
+    }));
+
+    return assessments;
+  } catch (error: any) {
+    console.log("Error fetching assessments", error);
+    throw new Error("Error fetching assessments");
+  }
+}
