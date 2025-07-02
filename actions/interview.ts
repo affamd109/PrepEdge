@@ -22,6 +22,37 @@ export async function generateQuiz(){
 
     if(!user) throw new Error("User not found");
 
+/* The below promt will give me something like this :
+{
+  "questions": [
+    {
+      "question": "What is the purpose of the useEffect hook in React?",
+      "options": [
+        "To manage component styling",
+        "To handle side effects in components",
+        "To define routes",
+        "To initialize state"
+      ],
+      "correctAnswer": "To handle side effects in components",
+      "explanation": "useEffect is used to handle side effects like data fetching, subscriptions, or manual DOM manipulation in functional React components."
+    },
+    {
+      "question": "Which of the following is NOT a JavaScript data type?",
+      "options": [
+        "Undefined",
+        "Number",
+        "Float",
+        "String"
+      ],
+      "correctAnswer": "Float",
+      "explanation": "JavaScript does not have a 'Float' type. Numbers in JS are all floating point by default."
+    },
+  
+    // ...and many more like this
+  ]
+}
+*/
+
 
      try {
         const prompt = `
@@ -65,7 +96,7 @@ export async function generateQuiz(){
 }
 
 
-export async function saveQuizResults(questions :QuizQuestions[] , answers :string , score:number){
+export async function saveQuizResult(questions :QuizQuestions[] , answers :string[] , score:number){
     const {userId} = await auth();
     if(!userId) throw new Error("Unauthorized");
 
@@ -158,18 +189,9 @@ let wrongQuestionsText = "";
     console.log("Error saving quiz results" , error);
     throw new Error("Error saving quiz results");
     
-
-    
    }
 
 
-
-
-
-
-
-
-
-
-
 }
+
+
