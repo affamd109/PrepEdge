@@ -38,7 +38,7 @@ export default function StatsCards({ assessments }: { assessments: Assessment[] 
 
             <Card className="bg-black border-gray-600">
                 <CardHeader className="flex flex-row items-center justify-between ">
-                    <CardTitle className="text-sm font-medium">Questiosn practiced by you </CardTitle>
+                    <CardTitle className="text-sm font-medium">Questions practiced by you </CardTitle>
                     <Brain className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
 

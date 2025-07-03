@@ -146,54 +146,70 @@ export default function Quiz() {
 
 
     return (
-        <Card className="mx-2">
-            <CardHeader>
-                <CardTitle>Question {currentQuestionIndex + 1} of {quizData.length} </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-lg  mb-4" > {questionObject.question} </p>
+       <Card className="bg-background border border-muted shadow-md">
+  <CardHeader>
+    <CardTitle className="text-xl md:text-2xl font-semibold text-primary">
+      Question {currentQuestionIndex + 1} of {quizData.length}
+    </CardTitle>
+  </CardHeader>
 
-                <RadioGroup onValueChange={handleAnswer} value={answers[currentQuestionIndex]} defaultValue="option-one" >
- 
-                    {questionObject.options.map((option: string, index: number) => (
+  <CardContent>
+    <p className="text-base md:text-lg font-medium mb-6">
+      {questionObject.question}
+    </p>
 
-                        <div key={index} className="flex items-center space-x-2">
-                            <RadioGroupItem className="space-y-4" value={option} id={`option-${index}`} />
-                            <Label htmlFor={`option-${index}`} >{option}</Label>
-                        </div>
+    <RadioGroup
+      className="space-y-3 mb-6"
+      onValueChange={handleAnswer}
+      value={answers[currentQuestionIndex]}
+    >
+      {questionObject.options.map((option: string, index: number) => (
+        <div
+          key={index}
+          className="flex items-center space-x-3 px-4 py-2 border rounded-md hover:bg-muted transition-colors"
+        >
+          <RadioGroupItem value={option} id={`option-${index}`} />
+          <Label htmlFor={`option-${index}`} className="cursor-pointer">
+            {option}
+          </Label>
+        </div>
+      ))}
+    </RadioGroup>
 
+    {showExplanation && (
+      <div className="mt-6 p-4 rounded-md bg-muted border text-sm leading-relaxed">
+        <p className="font-medium mb-1">Explanation:</p>
+        <p className="text-muted-foreground">{questionObject.explanation}</p>
+      </div>
+    )}
+  </CardContent>
 
-                    ))}
-                </RadioGroup>
+  <CardFooter className="flex justify-between items-center">
+    {!showExplanation ? (
+      <Button
+        variant="outline"
+        onClick={() => setShowExplanation(true)}
+        disabled={!answers[currentQuestionIndex]}
+      >
+        Show Explanation
+      </Button>
+    ) : (
+      <div />
+    )}
 
-                {showExplanation && (
-                    <div className="mt-6 p-4 rounded-lg bg-muted" >
-                        <p className="font-medium"> Explanation : </p>
-                        <p className="text--muted-foreground" > {questionObject.explanation} </p>
-                    </div>
-                ) }
-
-
-            </CardContent>
-            <CardFooter>
-
-                {!showExplanation && (
-                    <Button onClick={() => setShowExplanation(true)} disabled={!answers[currentQuestionIndex]} className="cursor-pointer" >
-                        Show explanation
-                     </Button>
-                )}
-
-                  <Button onClick={handleNext} 
-                  disabled={!answers[currentQuestionIndex] || savingResult } 
-                  className="cursor-pointer ml-auto" >
-                    {savingResult && (
-                        <Loader2 className="mr-2 animate-spin h-4 w-4" />
-                    )}
-                    {currentQuestionIndex < quizData.length -1 ? "Next Question" : "Finish quiz"}
-                  </Button>
-               
-            </CardFooter>
-        </Card>
+    <Button
+      onClick={handleNext}
+      disabled={!answers[currentQuestionIndex] || savingResult}
+    >
+      {savingResult && (
+        <Loader2 className="mr-2 animate-spin h-4 w-4" />
+      )}
+      {currentQuestionIndex < quizData.length - 1
+        ? "Next Question"
+        : "Finish Quiz"}
+    </Button>
+  </CardFooter>
+</Card>
 
     )
 }
