@@ -72,11 +72,6 @@ export default function OnboardingForm({ industries }: { industries: any }) {
 
 
 
-
-
-
-
-
     return (
         <div className="flex items-center justify-center bg-background" >
             <Card className="w-full max-w-lg mt-10 mx-2">

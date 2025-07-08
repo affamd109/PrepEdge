@@ -1,3 +1,5 @@
+"use server"
+
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -5,6 +7,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+
 
 export async function saveResume(content:any){
 
@@ -25,13 +29,11 @@ export async function saveResume(content:any){
 
     }
 
-
     try {
         const resume = await db.resume.upsert({ 
             //upsert means update or insert .. belwow we are either updating the resume or creating a new one
             where : {
                 userId :user.id,
-    
             },
             update : {
                 content,
@@ -42,17 +44,13 @@ export async function saveResume(content:any){
             }
         })
     
-
         revalidatePath("/resume");
         return resume;
     } catch (error : any) {
         console.log("Error saving the resume" , error);
         throw new Error("Error saving the resume" , error);
         
-        
     }
-
-
 }
 
 
