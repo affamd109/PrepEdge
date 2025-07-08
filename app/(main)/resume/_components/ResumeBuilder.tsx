@@ -11,10 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Download, Save } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
+import EntryForm from "./EntryForm"
 
 export default function ResumeBuilder({ initialContent }: any) {
 
-    const [activeTab, setActiveTab] = useState("edit"); //Tabs trigger mein value="edit"
+    const [activeTab, setActiveTab] = useState<string>("edit"); //Tabs trigger mein value="edit"
 
     const { control, register, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: zodResolver(resumeSchema),
@@ -40,7 +41,7 @@ export default function ResumeBuilder({ initialContent }: any) {
 
     }, [initialContent])
 
-    const onSubmit =async (data : any) =>{
+    const onSubmit = async (data: any) => {
 
 
     }
@@ -75,7 +76,7 @@ export default function ResumeBuilder({ initialContent }: any) {
                     <TabsTrigger value="preview">Markdown</TabsTrigger>
                 </TabsList>
                 <TabsContent value="edit">
-                    <form className="space-y-8" onSubmit={handleSubmit(onSubmit)} >
+                    <form className="space-y-8"  >
 
                         <div className="space-y-4" >
                             <h3 className="text-lg font-medium" >Contact Information</h3>
@@ -146,27 +147,109 @@ export default function ResumeBuilder({ initialContent }: any) {
                         </div>
 
 
-                         <div className="space-y-4">
-              <h3 className="text-lg font-medium">Professional Summary</h3>
-              <Controller
-                name="summary"
-                control={control}
-                render={({ field }) => (
-                  <Textarea
-                    {...field}
-                    className="h-32"
-                    placeholder="Write a compelling professional summary..."
-                    // error={errors.summary}
-                  />
-                )}
-              />
-              {errors.summary && (
-                <p className="text-sm text-red-500">{errors.summary.message}</p>
-              )}
-            </div>
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-medium">Professional Summary</h3>
+                            {/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+
+                            <Controller
+                                name="summary"
+                                control={control}
+                                render={({ field }) => (
+                                    <Textarea
+                                        {...field}
+                                        className="h-32"
+                                        placeholder="Write a compelling professional summary..."
+                                    // error={errors.summary}
+                                    />
+                                )}
+                            />
+                            {errors.summary && (
+                                <p className="text-sm text-red-500">{errors.summary.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-medium">Skills</h3>
+                            
+{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+                            <Controller
+                                name="skills"
+                                control={control}
+                                render={({ field }) => (
+                                    <Textarea
+                                        {...field}
+                                        className="h-32"
+                                        placeholder="Mention your skills..."
+                                    // error={errors.summary}
+                                    />
+                                )}
+                            />
+                            {errors.skills && (
+                                <p className="text-sm text-red-500">{errors.skills.message}</p>
+                            )}
+                        </div>
+
+
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-medium">Work Experience</h3>
+                            
+{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+                            <Controller
+                                name="experience"
+                                control={control}
+                                render={({ field }) => (
+
+                        <EntryForm type="Experience" entries={field.value} onChange={field.onChange} />
+                                   
+                                )}
+                            />
+                            {errors.experience && (
+                                <p className="text-sm text-red-500">{errors.experience.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-medium">Education</h3>
+                            
+{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+                            <Controller
+                                name="education"
+                                control={control}
+                                render={({ field }) => (
+                                 <EntryForm type="Education" entries={field.value} 
+                                 onChange={field.onChange} />
+
+                                   
+                                )}
+                            />
+                            {errors.education && (
+                                <p className="text-sm text-red-500">{errors.education.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-medium">Projects</h3>
+                            
+{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+                            <Controller
+                                name="projects"
+                                control={control}
+                                render={({ field }) => (
+                                 <EntryForm type="Projects" entries={field.value} 
+                                 onChange={field.onChange} />
+
+                                   
+                                )}
+                            />
+                            {errors.projects && (
+                                <p className="text-sm text-red-500">{errors.projects.message}</p>
+                            )}
+                        </div>
 
 
                     </form>
+
+
                 </TabsContent>
                 <TabsContent value="preview">Change your password here.</TabsContent>
             </Tabs>
