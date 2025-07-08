@@ -211,12 +211,12 @@ export default function ResumeBuilder({ initialContent }: any) {
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium">Education</h3>
                             
-{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+
                             <Controller
                                 name="education"
                                 control={control}
                                 render={({ field }) => (
-                                 <EntryForm type="Education" entries={field.value} 
+                                 <EntryForm type="Education" entries={field.value}  
                                  onChange={field.onChange} />
 
                                    
@@ -230,7 +230,7 @@ export default function ResumeBuilder({ initialContent }: any) {
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium">Projects</h3>
                             
-{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+
                             <Controller
                                 name="projects"
                                 control={control}
