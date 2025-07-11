@@ -8,16 +8,27 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import useFetch from "@/hooks/use-fetch"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader2, PlusCircle, SparklesIcon } from "lucide-react"
+import { format, parse } from "date-fns"
+import { Loader2, PlusCircle, SparklesIcon, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 export default function EntryForm({ type, entries, onChange }: any) {
 
+    const formatDisplayDate = (dateString : string) =>{
+        //This function formatDisplayDate takes a date string like "2023-08" and converts it into a prettier display format like "Aug 2023".
+
+        if(!dateString) return "";
+
+        const date = parse(dateString , "yyyy-MM" , new Date());
+        return format(date , "MMM yyyy");
+
+    }
+
     const [isAdding, setIsAdding] = useState<boolean>(false);
 
-    const { register, handleSubmit, formState: { errors }, watch, reset, setValue } = useForm({
+    const { register, handleSubmit : handleValidation, formState: { errors }, watch, reset, setValue } = useForm({
         resolver: zodResolver(entrySchema),
         defaultValues: {
             title: "",
@@ -58,7 +69,29 @@ export default function EntryForm({ type, entries, onChange }: any) {
         })
     }
 
-    const handleAdd = () =>{
+    const handleAdd = handleValidation((data) =>{
+        const formattedEntry = {
+            ...data , 
+            startDate : formatDisplayDate(data.startDate),
+            endDate : data.endDate ? formatDisplayDate(data.endDate) : ""
+//i will have to chckk if data.endDate is present or not cuz endDate is of the type of string|undefined
+        }
+
+        //Below adds a new formattedEntry to the existing entries array.
+        onChange([...entries , formattedEntry]); //entries is a prop from ResumeBuilder
+
+        //After this , just reset 
+
+        reset();
+        setIsAdding(false);
+
+    })
+
+    const handleDelete = (index : number) =>{
+        const newEntries = entries.filter((item : any , i:number) => i !== index);
+        onChange(newEntries);
+
+
 
     }
 
@@ -66,7 +99,40 @@ export default function EntryForm({ type, entries, onChange }: any) {
 
     return (
 
-        <div>
+        <div className="space-y-4" >
+
+            <div className="space-y-4">
+        {entries.map((item : any, index : number) => (
+          <Card key={index}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                {item.title} @ {item.organization}
+              </CardTitle>
+
+              <Button
+                variant="outline"
+                size="icon"
+                type="button"
+                onClick={() => handleDelete(index)}
+                className="border border-red-500 cursor-pointer "
+              >
+                <X className="h-4 w-4 text-red-500  " />
+              </Button>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">
+
+        {item.current ? `${item.startDate} - Present` : `${item.startDate} - ${item.endDate}`}
+
+              </p>
+              <p className="mt-2 text-sm whitespace-pre-wrap">
+                {item.description}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
 
             {isAdding && (
                 <Card>
@@ -175,7 +241,16 @@ export default function EntryForm({ type, entries, onChange }: any) {
 
                     </CardContent>
 
-                    <CardFooter>
+                    <CardFooter className="flex justify-end space-x-2 " >
+
+                        <Button type="button"  className="cursor-pointer"
+                        onClick={handleAdd}
+                         >
+                            <PlusCircle/>
+                            Add entry
+
+                        </Button>
+
                         <Button type="button" variant="ghost" className="cursor-pointer"
                          onClick={() =>{
                             reset();
@@ -185,15 +260,6 @@ export default function EntryForm({ type, entries, onChange }: any) {
                          } >
                             Cancel
                         </Button>
-
-                        <Button type="button"  className="cursor-pointer"
-                        onClick={handleAdd}
-                         >
-
-                            Add entry
-
-                        </Button>
-
 
                     </CardFooter>
                     

@@ -34,7 +34,8 @@ export const entrySchema = z.object({
     description: z.string().min(1, "Description is required"),
     current: z.boolean().default(false),
 
-}).refine((data) =>{
+}).refine((data) =>{     
+    //That data is automatically passed in by Zod — it's the validated object you're refining.
     if(!data.current && !data.endDate){
         return false;
     }
