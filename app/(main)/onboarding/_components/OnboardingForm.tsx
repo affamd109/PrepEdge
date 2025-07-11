@@ -46,7 +46,8 @@ export default function OnboardingForm({ industries }: { industries: any }) {
         console.log(values);
 
     try {
-        const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/ /g,"-")}`
+        
+const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/ /g,"-")}`
     
         await updateUserfn({...values , industry : formattedIndustry});
     
