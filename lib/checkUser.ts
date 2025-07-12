@@ -25,7 +25,8 @@ export const checkUser = async()  =>{
         //But if user does not exist in our database, we will create a new user
         const name = `${user.firstName} ${user.lastName}`;
 
-        const newUser = await db.user.create({
+        //create newUser if not found :
+         await db.user.create({
             data : {
                 clerkUserId: user.id,
                 name: name,

@@ -18,7 +18,7 @@ import MDEditor from '@uiw/react-md-editor';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner"
-import { ResumeContent } from "@/lib/types"
+
 
 type ResumeBuilderProps = {
   initialContent: string | undefined
