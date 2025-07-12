@@ -56,14 +56,14 @@ export default function Quiz() {
 
     const finishQuiz = async() =>{
         //This calculates the final score of the quiz and triggers an API call to save our performance
-        let score = calculateScore();
+        const score = calculateScore();
 
         try {
             await saveQuizResultFn(quizData , answers as string[] , score);
             toast.success("Quiz completed!")
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.log("Error saving the results" , error)
-            throw new Error("Error saving the results" , error);
+            throw new Error("Error saving the results" );
             
             
         }

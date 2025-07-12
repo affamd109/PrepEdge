@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card,  CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { Insights } from "@/lib/types";
-
 import { BarChartIcon, Brain, BriefcaseIcon, LineChart, TrendingDown, TrendingUp } from "lucide-react";
 import { BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
 
@@ -154,9 +153,9 @@ export default function DashboardView({ insights }: { insights: Insights }) {
                                     return null;
                                 }} />
 
-                               <Bar dataKey="min" fill="#334155" name="Min Salary" />     // Slate-700
-<Bar dataKey="median" fill="#475569" name="Median Salary" /> // Slate-600
-<Bar dataKey="max" fill="#64748b" name="Max Salary" />     // Slate-500
+                               <Bar dataKey="min" fill="#334155" name="Min Salary" />     
+<Bar dataKey="median" fill="#475569" name="Median Salary" /> 
+<Bar dataKey="max" fill="#64748b" name="Max Salary" />   
 
                             </BarChart>
                         </ResponsiveContainer>
