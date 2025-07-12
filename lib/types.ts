@@ -1,6 +1,14 @@
 import { z } from "zod";
 import { resumeSchema } from "@/app/lib/schemas";
 
+export type UserUpdateInput = {
+  industry: string;
+  experience: number;
+  bio: string;
+  skills: string[];
+
+}
+
 export type SalaryRange = {
     max: number;
     min: number;

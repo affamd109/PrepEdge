@@ -72,25 +72,44 @@ export default function QuizList({ assessments }: { assessments: Assessment[] })
             </Card>
 
 
-{/* Here dbl exclamation (!!) ensures "open" is strictly true or false — not undefined, null, or an object. 
-onOpenChange : This gets triggered when the Dialog is closed (e.g., user clicks outside or presses Esc).
-
-*/}
 
 
 
+{/* 
    <Dialog open={!!selectedQuiz} onOpenChange={() => setSelectedQuiz(null)}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle></DialogTitle>
           </DialogHeader>
           <QuizResult
-            result={selectedQuiz} //from line 42
+            result={selectedQuiz} 
             hideStartNew //This hides the Start new quiz button (refer to QuizResult )
             onStartNew={() => router.push("/interview/mock")}
           />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
+
+
+      {/* Here dbl exclamation (!!) ensures "open" is strictly true or false — not undefined, null, or an object. 
+onOpenChange : This gets triggered when the Dialog is closed (e.g., user clicks outside or presses Esc).
+
+*/}
+
+      {selectedQuiz && (
+  <Dialog open={true} onOpenChange={() => setSelectedQuiz(null)}>
+    <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogHeader>
+        <DialogTitle></DialogTitle>
+      </DialogHeader>
+      <QuizResult
+        result={selectedQuiz}
+        hideStartNew
+        onStartNew={() => router.push("/interview/mock")}
+      />
+    </DialogContent>
+  </Dialog>
+)}
+
 
 
         </>
