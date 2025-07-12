@@ -5,7 +5,7 @@ Live website link : https://prep-edge-2-kohl.vercel.app/
 
 **PrepEdge** is a full-stack AI-powered platform built to streamline your career prep journey — from resume generation on one-click to interview practice and exploring  industry trends via engaging charts.
 
-🧠 Backed by Gemini API | 💽 Built with NextJS | 🔐 Auth via Clerk  
+**🧠 Backed by Gemini API | 💽 Built with NextJS | 🔐 Auth via Clerk** 
 
 
 
