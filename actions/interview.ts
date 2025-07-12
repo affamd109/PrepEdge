@@ -163,7 +163,7 @@ let wrongQuestionsText = "";
         const response = result.response;
         improvementTip = response.text().trim(); //Here no need to get the cleanedTex because we are not asking for any kind of JSON object.. 
     } catch (error) {
-        console.log("Error generating improvement tip");
+        console.log("Error generating improvement tip" );
         throw new Error("Error generating improvement tip");
         
         

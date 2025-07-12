@@ -46,9 +46,9 @@ export async function saveResume(content:any){
     
         revalidatePath("/resume");
         return resume;
-    } catch (error : any) {
+    } catch (error : unknown) {
         console.log("Error saving the resume" , error);
-        throw new Error("Error saving the resume" , error);
+        throw new Error("Error saving the resume" );
         
     }
 }
@@ -124,9 +124,9 @@ export async function improveWithAI({current , type} : any){
   
     return improvedContent;
   
-  } catch (error : any) {
+  } catch (error : unknown) {
     console.log("Failed to return improved content" , error)
-    throw new Error("Failed to return improved content" , error);
+    throw new Error("Failed to return improved content" );
     
     
   }

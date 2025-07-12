@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import { BarLoader } from "react-spinners";
 import { toast } from "sonner";
 import QuizResult from "./QuizResult";
+import { QuizResults } from "@/lib/types";
 
 export default function Quiz() {
 
@@ -92,7 +93,7 @@ export default function Quiz() {
     if(resultData){
         return (
             <div className="mx-2" >
-                <QuizResult result={resultData} onStartNew={startNewQuiz} />
+                <QuizResult result={{ ...resultData, questions: resultData.questions as QuizResults[] }} onStartNew={startNewQuiz} />
             </div>
         )
     }
