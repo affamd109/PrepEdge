@@ -14,13 +14,9 @@ export default function PerformanceChart({ assessments } : {assessments : Assess
     if (assessments) {
       const formattedData = assessments.map((assessment) => ({
         date: format(new Date(assessment.createdAt), "MMM dd"),
-       score: Number(assessment.quizScore) || 0,
+        score: Number(assessment.quizScore) || 0,
       }));
-      
       setChartData(formattedData);
-      console.log(formattedData); // Add this inside useEffect
-      console.log('Chart data:', chartData);
-      console.log('Assessments:', assessments);
     }
   }, [assessments]);
 
@@ -33,38 +29,44 @@ export default function PerformanceChart({ assessments } : {assessments : Assess
         <CardDescription>Your quiz scores over time</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis domain={[0, 100]} />
-              <Tooltip
-                content={({ active, payload }) => {
-                  if (active && payload?.length) {
-                    return (
-                      <div className="bg-background border rounded-lg p-2 shadow-md">
-                        <p className="text-sm font-medium">
-                          Score: {payload[0].value}%
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {payload[0].payload.date}
-                        </p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Line
-  type="monotone"
-  dataKey="score"
-  stroke="#FFFFFF" 
-  strokeWidth={3}
-  dot={{ fill: '#FFFFFF', strokeWidth: 2, r: 4 }}
-/>
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="h-[300px] flex items-center justify-center">
+          {chartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis domain={[0, 100]} />
+                <Tooltip
+                  content={({ active, payload }) => {
+                    if (active && payload?.length) {
+                      return (
+                        <div className="bg-background border rounded-lg p-2 shadow-md">
+                          <p className="text-sm font-medium">
+                            Score: {payload[0].value}%
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {payload[0].payload.date}
+                          </p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  stroke="#FFFFFF" 
+                  strokeWidth={3}
+                  dot={{ fill: '#FFFFFF', strokeWidth: 2, r: 4 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-muted-foreground text-lg">
+              No quiz data available yet. Complete a quiz to see your performance!
+            </p>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -71,8 +71,6 @@ export async function getIndustryInsights() {
         if (!user.industry) throw new Error("Industry not set")
         const insights = await generateAIInsights(user.industry);
 
-        // in place of line 62 and 63 i can also write :
-        // const insights =  generateAIInsights(user.industry!) --> certain that industry cant be null
 
 
         const industryInsight = await db.industryInsight.create({

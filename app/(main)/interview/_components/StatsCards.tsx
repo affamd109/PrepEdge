@@ -17,8 +17,6 @@ export default function StatsCards({ assessments }: { assessments: Assessment[] 
 
 
 
-
-
     return (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-3 mx-4 md:mx-0">
 
@@ -58,7 +56,9 @@ export default function StatsCards({ assessments }: { assessments: Assessment[] 
                 </CardHeader>
 
                 <CardContent>
-            <div className="text-2xl font-bold mb-1">{assessments[0].quizScore.toFixed(1) || 0 }%</div>
+<div className="text-2xl font-bold mb-1">
+  {assessments.length > 0 ? `${assessments[0].quizScore.toFixed(1)}%` : "0%"}
+</div>
                     <p className="text-xs text-muted-foreground">
                         scored in last assessment
                     </p>
