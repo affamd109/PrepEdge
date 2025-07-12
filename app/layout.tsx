@@ -5,14 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import { dark } from '@clerk/themes'
 
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
 

@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card,  CardContent, CardDescription,  CardHeader, CardTitle } from "@/components/ui/card";
 import { Assessment } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { format } from "date-fns";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent,  DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import QuizResult from "./QuizResult";
 
 export default function QuizList({ assessments }: { assessments: Assessment[] }) {

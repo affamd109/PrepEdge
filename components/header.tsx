@@ -1,8 +1,8 @@
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import {  SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Brain, ChevronDown, FileText, GraduationCap, LayoutDashboard, PenBox, StarsIcon } from "lucide-react";
+import { Brain, ChevronDown, FileText, GraduationCap, LayoutDashboard,  StarsIcon } from "lucide-react";
 import { checkUser } from "@/lib/checkUser";
 import {
     DropdownMenu,

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { BarLoader } from "react-spinners";
-import { SparklesCore } from "@/components/ui/sparkles"; // adjust path as needed
+
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (

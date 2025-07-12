@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Assessment } from "@/lib/types";
-import { Brain, TrendingUp, Trophy } from "lucide-react";
+import { Brain,  Trophy } from "lucide-react";
 
 export default function StatsCards({ assessments }: { assessments: Assessment[] }) {
     //Assessment will give an object which contains many thing.. just look in lib/types.ts

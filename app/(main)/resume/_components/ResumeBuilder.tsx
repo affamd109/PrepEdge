@@ -15,7 +15,6 @@ import EntryForm from "./EntryForm"
 import { entriesToMarkdown } from "@/app/lib/helper"
 import { useUser } from "@clerk/nextjs"
 import MDEditor from '@uiw/react-md-editor';
-
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner"

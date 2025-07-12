@@ -1,11 +1,11 @@
 "use client"
 import { Badge } from "@/components/ui/badge";
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card,  CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import type { Insights, SalaryRange } from "@/lib/types";
-import { divMode } from "@tsparticles/engine";
+import type { Insights } from "@/lib/types";
+
 import { BarChartIcon, Brain, BriefcaseIcon, LineChart, TrendingDown, TrendingUp } from "lucide-react";
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
 
 
 export default function DashboardView({ insights }: { insights: Insights }) {
