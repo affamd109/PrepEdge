@@ -222,7 +222,7 @@ export async function getAssessments(): Promise<Assessment[]> {
     }));
 
     return assessments;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("Error fetching assessments", error);
     throw new Error("Error fetching assessments");
   }

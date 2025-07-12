@@ -18,24 +18,26 @@ import MDEditor from '@uiw/react-md-editor';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner"
+import { ResumeContent } from "@/lib/types"
+
+type ResumeBuilderProps = {
+  initialContent: string | undefined
+}
 
 
 
-
-
-
-export default function ResumeBuilder({ initialContent }: any) {
+export default function ResumeBuilder({ initialContent }: ResumeBuilderProps ) {
 
     const [activeTab, setActiveTab] = useState<string>("edit"); //Tabs trigger mein value="edit"
     const [resumeMode, setResumeMode] = useState<"edit" | "preview">("preview");
-    const [previewContent, setPreviewContent] = useState<any>(initialContent);
+const [previewContent, setPreviewContent] = useState<string | undefined>(initialContent);
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
     const { user, isLoaded } = useUser();
 
 
 
 
-    const { control, register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { control, register,  watch, formState: { errors } } = useForm({
         resolver: zodResolver(resumeSchema),
         defaultValues: {
             contactInfo: {},
@@ -116,10 +118,10 @@ export default function ResumeBuilder({ initialContent }: any) {
 
     const onSubmit = async () => {
         try {
-            await saveResumeFn(previewContent);
+            await saveResumeFn(previewContent ?? "" );
 
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.log("Error while saving", error);
             throw new Error("Error while saving");
 

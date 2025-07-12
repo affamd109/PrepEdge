@@ -57,6 +57,7 @@ model Resume {
   updatedAt   DateTime  @updatedAt
 }
 
+
 model CoverLetter {
   id              String    @id @default(cuid())
   userId          String

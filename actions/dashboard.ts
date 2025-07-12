@@ -37,8 +37,9 @@ export async function generateAIInsights(industry: string){
 
         return JSON.parse(cleanedText);
 
-    } catch (error: any) {
-        throw new Error("Gemini API processing failed", error.message);
+    } catch (error: unknown) {
+        console.log("Gemini API processing failed" , error);
+        throw new Error("Gemini API processing failed");
 
 
     }

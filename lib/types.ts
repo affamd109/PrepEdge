@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { resumeSchema } from "@/app/lib/schemas";
+
 export type SalaryRange = {
     max: number;
     min: number;
@@ -51,3 +54,35 @@ export type Assessment = {
   updatedAt: Date;
 
 }
+
+export type Entry = {
+  title: string;
+  organization: string;
+  startDate: string;
+  endDate?: string;
+  description: string;
+  current?: boolean;
+};
+
+export type EntryFormProps = {
+  type: "Experience" | "Projects" | "Education";
+    entries : Entry[];
+  onChange: (updatedEntries: Entry[]) => void;
+}
+
+
+export type ResumeContent = z.infer<typeof resumeSchema>;
+
+export const EMPTY_RESUME_CONTENT: ResumeContent = {
+  contactInfo: {
+    email: "",
+    mobile: "",
+    github: "",
+    linkedIn: "",
+  },
+  summary: "",
+  skills: "",
+  experience: [],
+  education: [],
+  projects: [],
+};

@@ -7,6 +7,7 @@ import { Card,  CardContent,  CardFooter, CardHeader, CardTitle } from "@/compon
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import useFetch from "@/hooks/use-fetch"
+import { EntryFormProps } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format, parse } from "date-fns"
 import { Loader2, PlusCircle, SparklesIcon, X } from "lucide-react"
@@ -14,7 +15,7 @@ import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-export default function EntryForm({ type, entries, onChange }: any) {
+export default function EntryForm({ type , entries, onChange } : EntryFormProps ) {
 
     const [isAdding, setIsAdding] = useState<boolean>(false);
     

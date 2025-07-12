@@ -10,7 +10,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
 
-export async function saveResume(content:any){
+export async function saveResume(content:string  ){
 
      const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
@@ -83,7 +83,7 @@ export async function getResume(){
 
 }
 
-export async function improveWithAI({current , type} : any){
+export async function improveWithAI({current , type} : {current : string ; type : string}){
       const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
 
