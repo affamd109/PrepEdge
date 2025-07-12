@@ -45,7 +45,12 @@ export default function OnboardingForm({ industries }: { industries: Industry[] 
         
 const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/ /g,"-")}`
     
-        await updateUserfn({...values , industry : formattedIndustry});
+await updateUserfn({
+  industry: formattedIndustry,
+  experience: values.experience,
+  bio: values.bio ?? "", // fallback to empty string if undefined
+  skills: values.skills ?? [], // fallback to empty array if undefined
+});
     
     } catch (error) {
         console.log("Onboarding error" , error);

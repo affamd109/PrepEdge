@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { generateAIInsights } from "./dashboard";
 import { UserUpdateInput } from "@/lib/types";
 
-export async function updateUser(data : any) {
+export async function updateUser(data : UserUpdateInput) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
@@ -68,6 +68,8 @@ export async function updateUser(data : any) {
     throw new Error("Failed to update profile");
   }
 }
+
+
 
 export async function getUserOnboardingStatus() {
   const { userId } = await auth();

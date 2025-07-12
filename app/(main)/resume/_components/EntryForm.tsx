@@ -7,7 +7,7 @@ import { Card,  CardContent,  CardFooter, CardHeader, CardTitle } from "@/compon
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import useFetch from "@/hooks/use-fetch"
-import { EntryFormProps } from "@/lib/types"
+import { Entry, EntryFormProps } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format, parse } from "date-fns"
 import { Loader2, PlusCircle, SparklesIcon, X } from "lucide-react"
@@ -90,10 +90,8 @@ export default function EntryForm({ type , entries, onChange } : EntryFormProps 
     })
 
     const handleDelete = (index : number) =>{
-        const newEntries = entries.filter((item : any , i:number) => i !== index);
+        const newEntries = entries.filter((item : Entry , i:number) => i !== index);
         onChange(newEntries);
-
-
 
     }
 
@@ -104,7 +102,7 @@ export default function EntryForm({ type , entries, onChange } : EntryFormProps 
         <div className="space-y-4" >
 
             <div className="space-y-4">
-        {entries.map((item : any, index : number) => (
+        {entries.map((item : Entry, index : number) => (
           <Card key={index}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
