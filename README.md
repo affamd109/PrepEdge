@@ -24,9 +24,6 @@ Live website link : https://prep-edge-2-kohl.vercel.app/
   Clerk for seamless login + NeonDB to persist user resumes, performance data
 
 ---
-
-## Tech Stack
-
 ### 🛠️ Tech Stack
 
 | Category            | Tech Used                                      |
