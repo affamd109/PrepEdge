@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# PrepEdge : AI-Powered Career Assistant
 
-First, run the development server:
+Live website link : https://prep-edge-2-kohl.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**PrepEdge** is a full-stack AI-powered platform built to streamline your career prep journey — from resume generation on one-click to interview practice and exploring  industry trends via engaging charts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 📝 **Resume  Builder**  
+  Generate a professional resume just by filling up an in-built form.
 
-## Learn More
+- 🤖 **AI-Powered Interview Coach**  
+  Get infinite curated questions tailored to your role & experience(According to you preferred Industry).
 
-To learn more about Next.js, take a look at the following resources:
+- 📊 **Industry Insights Dashboards**  
+  Interactive dashboards with sector-wise trends along with min , median , max salaries of trendy roles.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 📄 **One-Click PDF Exports**  
+  Download resumes PDF instantly via html2canvas-pro + jsPDF just by a click.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 🧑‍💼 **User Authentication & Personalization**  
+  Clerk for seamless login + NeonDB to persist user resumes, performance data
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🛠️ Tech Stack
+
+| Category            | Tech Used                                      |
+|---------------------|-------------------------------------------------|
+| **Framework**        | Next.js (For Frontend & Backend)                             |
+| **Language**         | TypeScript                                     |
+| **Styling & UI**     | TailwindCSS, Shadcn UI   |
+| **PDF Generation**   | html2canvas-pro, jsPDF                         |
+| **Database**         | NeonDB                                         |
+| **ORM**              | Prisma                                         |
+| **Authentication**   | Clerk                                          |
+| **Validation**       | Zod                                            |
+| **AI Integration**   | Gemini API                                     |
+| **Deployment**       | Vercel                                         |
+
