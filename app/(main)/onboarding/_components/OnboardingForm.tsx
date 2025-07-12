@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { onboardingSchema } from "@/app/lib/schemas";
 import { z } from "zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { Card,  CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
@@ -15,25 +15,22 @@ import { Button } from "@/components/ui/button";
 import useFetch from "@/hooks/use-fetch";
 import { updateUser } from "@/actions/user";
 import { Loader2 } from "lucide-react";
+import { Industry } from "@/lib/types";
 
-export default function OnboardingForm({ industries }: { industries: any }) {
+export default function OnboardingForm({ industries }: { industries: Industry[] }) {
 
     // Define the type for industries based on the structure of the data
-    type Industry = {
-        id: string;
-        name: string;
-        subIndustries: string[];
-    }
+    
 
     const typedIndustries = industries as Industry[];
 
     type onboardingFormData = z.infer<typeof onboardingSchema>;
 
     const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
-    const router = useRouter(); //This helps us navigate to different pages
+    // const router = useRouter(); //This helps us navigate to different pages
 
     //Using my custom hook : 
-    const {data : updateResult , loading : updateLoading , func : updateUserfn } = useFetch(updateUser);
+    const {  loading : updateLoading , func : updateUserfn } = useFetch(updateUser);
 
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
         resolver: zodResolver(onboardingSchema)
@@ -96,7 +93,7 @@ const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase()
                             <Select
                                 onValueChange={(value) => {
                                     setValue("industry", value);
-                                    setSelectedIndustry(industries.find((ind: Industry) => ind.id === value))
+                                    setSelectedIndustry(industries.find((ind: Industry) => ind.id === value) || null )
                                     setValue("subIndustry", "");
                                 }
 

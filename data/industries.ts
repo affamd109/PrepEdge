@@ -1,4 +1,6 @@
-export const industries = [
+import { Industry } from "@/lib/types";
+
+export const industries : Industry[] = [
   {
     id: "tech",
     name: "Technology",

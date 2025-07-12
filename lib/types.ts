@@ -18,6 +18,12 @@ export type Insights = {
 
 };
 
+ export type Industry = {
+        id: string;
+        name: string;
+        subIndustries: string[];
+    }
+
 export type QuizQuestions = {
     question: string;
     options: string[];
