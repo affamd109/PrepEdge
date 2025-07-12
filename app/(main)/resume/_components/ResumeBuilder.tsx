@@ -8,14 +8,33 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import useFetch from "@/hooks/use-fetch"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Download, Save } from "lucide-react"
+import { AlertTriangle, Download, Edit, Loader2, Monitor, Save } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import EntryForm from "./EntryForm"
+import { entriesToMarkdown } from "@/app/lib/helper"
+import { useUser } from "@clerk/nextjs"
+import MDEditor from '@uiw/react-md-editor';
+
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas-pro";
+import { toast } from "sonner"
+
+
+
+
+
 
 export default function ResumeBuilder({ initialContent }: any) {
 
     const [activeTab, setActiveTab] = useState<string>("edit"); //Tabs trigger mein value="edit"
+    const [resumeMode, setResumeMode] = useState<"edit" | "preview">("preview");
+    const [previewContent, setPreviewContent] = useState<any>(initialContent);
+    const [isGenerating, setIsGenerating] = useState<boolean>(false);
+    const { user, isLoaded } = useUser();
+
+
+
 
     const { control, register, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: zodResolver(resumeSchema),
@@ -31,7 +50,42 @@ export default function ResumeBuilder({ initialContent }: any) {
 
     const { data: saveResult, loading: isSaving, error: saveError, func: saveResumeFn } = useFetch(saveResume);
 
-    const formValues = watch(); //This is because we need live preview
+    const formValues = watch(); //This is because we need live preview , You can use it to build live previews, generate markdown, or auto-save data.Means : "Get the latest snapshot of all the form fields."
+
+
+    const getContactMarkdown = () => {
+        const { contactInfo } = formValues;
+
+        const parts = [];
+
+        if (contactInfo.email) parts.push(` ${contactInfo.email}`);
+        if (contactInfo.mobile) parts.push(` ${contactInfo.mobile}`);
+        if (contactInfo.linkedIn)
+            parts.push(`[LinkedIn](${contactInfo.linkedIn})`);
+        if (contactInfo.github) parts.push(` [Twitter](${contactInfo.github})`);
+
+        return parts.length > 0 && user
+            ? `## <div align="center">${user.fullName}</div>
+        \n\n<div align="center">\n\n${parts.join(" | ")}\n\n</div>`
+            : "";
+    };
+
+    const getCombinedContent = () => {
+        const { summary, skills, experience, education, projects } = formValues;
+
+        return [
+            getContactMarkdown(),
+            summary && `## Professional Summary\n\n${summary}`,
+            skills && `## Skills\n\n${skills}`,
+            entriesToMarkdown(experience, "Work Experience"),
+            entriesToMarkdown(education, "Education"),
+            entriesToMarkdown(projects, "Projects"),
+        ]
+            .filter(Boolean)
+            .join("\n\n");
+    };
+
+
 
     useEffect(() => {
         if (initialContent) {
@@ -39,13 +93,75 @@ export default function ResumeBuilder({ initialContent }: any) {
             setActiveTab("preview");
         }
 
-    }, [initialContent])
+    }, [initialContent]);
 
-    const onSubmit = async (data: any) => {
 
+    useEffect(() => {
+
+        if (activeTab === "edit") {
+            const newContent = getCombinedContent();
+            setPreviewContent(newContent ? newContent : initialContent);
+        }
+
+    }, [formValues, activeTab]);
+
+    useEffect(() =>{
+        if(saveResult && !isSaving){
+            toast.success("Resume saved successfully");
+        }
+        if(saveError){
+            toast.error(saveError.message || "Failed to save resume");
+        }
+    } ,[saveResult , isSaving , saveError] ) ;
+
+
+    const onSubmit = async () => {
+        try {
+            await saveResumeFn(previewContent);
+
+
+        } catch (error: any) {
+            console.log("Error while saving", error);
+            throw new Error("Error while saving");
+
+        }
 
     }
 
+
+
+ const generatePDF = async () => {
+  setIsGenerating(true);
+  try {
+    const element = document.getElementById("resume-pdf");
+    if (!element) return;
+
+    // ✅ Wait for the element to fully render
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("resume.pdf");
+  } catch (error) {
+    console.error("PDF generation error:", error);
+  } finally {
+    setIsGenerating(false);
+  }
+};
+
+
+    if (!isLoaded || !user) {
+        return <></>;
+    }
 
 
     return (
@@ -58,15 +174,41 @@ export default function ResumeBuilder({ initialContent }: any) {
 
                 <div className="space-x-2" >
 
-                    <Button variant="destructive">
-                        <Save className="h-4 w-4" />
-                        Save
+
+                    <Button className="cursor-pointer" onClick={generatePDF} disabled={isGenerating}  >
+
+                        {isGenerating ? (
+                            <>
+
+                                <Loader2 className="h-4 w-4 mr-2" />
+                                Downloading Pdf
+                            </>
+
+                        ) : (
+                            <>
+                                <Download className="h-4 w-4" />
+                                Download Pdf
+                            </>
+                        )}
+
+
                     </Button>
 
-                    <Button>
-                        <Download className="h-4 w-4" />
-                        Download Pdf
+                    <Button className="cursor-pointer " variant="destructive" onClick={onSubmit} 
+                    disabled={isSaving} >
+                        {isSaving ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Saving...
+                            </>
+                        ) : (
+                            <>
+                                <Save className="h-4 w-4" />
+                                Save
+                            </>
+                        )}
                     </Button>
+
                 </div>
             </div>
 
@@ -170,8 +312,8 @@ export default function ResumeBuilder({ initialContent }: any) {
 
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium">Skills</h3>
-                            
-{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+
+                            {/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
                             <Controller
                                 name="skills"
                                 control={control}
@@ -192,15 +334,15 @@ export default function ResumeBuilder({ initialContent }: any) {
 
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium">Work Experience</h3>
-                            
-{/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
+
+                            {/* When u are inside a react hook form , and using components like textarea from other libraries like shadCN UI , then u have to wrap it around a controller tag */}
                             <Controller
                                 name="experience"
                                 control={control}
                                 render={({ field }) => (
 
-                        <EntryForm type="Experience" entries={field.value} onChange={field.onChange} />
-                                   
+                                    <EntryForm type="Experience" entries={field.value} onChange={field.onChange} />
+
                                 )}
                             />
                             {errors.experience && (
@@ -210,16 +352,16 @@ export default function ResumeBuilder({ initialContent }: any) {
 
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium">Education</h3>
-                            
+
 
                             <Controller
                                 name="education"
                                 control={control}
                                 render={({ field }) => (
-                                 <EntryForm type="Education" entries={field.value}  
-                                 onChange={field.onChange} />
+                                    <EntryForm type="Education" entries={field.value}
+                                        onChange={field.onChange} />
 
-                                   
+
                                 )}
                             />
                             {errors.education && (
@@ -229,16 +371,16 @@ export default function ResumeBuilder({ initialContent }: any) {
 
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium">Projects</h3>
-                            
+
 
                             <Controller
                                 name="projects"
                                 control={control}
                                 render={({ field }) => (
-                                 <EntryForm type="Projects" entries={field.value} 
-                                 onChange={field.onChange} />
+                                    <EntryForm type="Projects" entries={field.value}
+                                        onChange={field.onChange} />
 
-                                   
+
                                 )}
                             />
                             {errors.projects && (
@@ -251,7 +393,77 @@ export default function ResumeBuilder({ initialContent }: any) {
 
 
                 </TabsContent>
-                <TabsContent value="preview">Change your password here.</TabsContent>
+                <TabsContent value="preview">
+
+                    {activeTab === "preview" && (
+                        <Button
+                            variant="link"
+                            type="button"
+                            className="mb-2"
+                            onClick={() =>
+                                setResumeMode(resumeMode === "preview" ? "edit" : "preview")
+                            }
+                        >
+                            {resumeMode === "preview" ? (
+                                <>
+                                    <Edit className="h-4 w-4" />
+                                    Edit Resume
+                                </>
+                            ) : (
+                                <>
+                                    <Monitor className="h-4 w-4" />
+                                    Show Preview
+                                </>
+                            )}
+                        </Button>
+                    )}
+
+                    {activeTab === "preview" && resumeMode !== "preview" && (
+                        <div className="flex p-3 gap-2 items-center border-2 border-yellow-600 text-yellow-600 rounded mb-2">
+                            <AlertTriangle className="h-5 w-5" />
+                            <span className="text-sm">
+                                You will lose editied markdown if you update the form data.
+                            </span>
+                        </div>
+                    )}
+
+                    <div>
+                        <MDEditor
+                            value={previewContent}
+                            onChange={setPreviewContent}
+                            height={800}
+                            preview={resumeMode}
+                        />
+
+                   <div
+  style={{
+    opacity: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: -1,
+    pointerEvents: "none",
+  }}
+>
+  <div id="resume-pdf">
+    <MDEditor.Markdown
+      source={previewContent}
+      style={{
+        background: "white",
+        color: "black",
+        padding: "1rem",
+        width: "210mm", // A4 width
+      }}
+    />
+  </div>
+</div>
+
+
+
+
+                    </div>
+
+                </TabsContent>
             </Tabs>
 
 

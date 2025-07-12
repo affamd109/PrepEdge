@@ -16,6 +16,8 @@ import { toast } from "sonner"
 
 export default function EntryForm({ type, entries, onChange }: any) {
 
+    const [isAdding, setIsAdding] = useState<boolean>(false);
+    
     const formatDisplayDate = (dateString : string) =>{
         //This function formatDisplayDate takes a date string like "2023-08" and converts it into a prettier display format like "Aug 2023".
 
@@ -26,7 +28,6 @@ export default function EntryForm({ type, entries, onChange }: any) {
 
     }
 
-    const [isAdding, setIsAdding] = useState<boolean>(false);
 
     const { register, handleSubmit : handleValidation, formState: { errors }, watch, reset, setValue } = useForm({
         resolver: zodResolver(entrySchema),

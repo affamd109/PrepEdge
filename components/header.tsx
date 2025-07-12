@@ -65,19 +65,19 @@ export default async function Header ()  {
                             <DropdownMenuContent>
 
                                 <DropdownMenuItem asChild >
-                                    <Link href="/resume" className="flex items-center cursor-pointer space-x-2" >
+                                    <Link href="/resume" className="flex items-center cursor-pointer space-x-0" >
                                         <FileText />
                                         <span>Resume Builder</span>
 
                                     </Link>
                                 </DropdownMenuItem>
 
-                                <DropdownMenuItem>
+                                {/* <DropdownMenuItem>
                                      <Link href="/coverletter" className="flex items-center space-x-2" >
                                     <PenBox />
                                     <span>Cover Letter Builder</span>
 
-                                </Link></DropdownMenuItem>
+                                </Link></DropdownMenuItem> */}
 
                                 <DropdownMenuItem>
                                     <Link href="/interview" className="flex items-center space-x-2" >
