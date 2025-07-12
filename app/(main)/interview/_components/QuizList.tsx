@@ -38,7 +38,7 @@ export default function QuizList({ assessments }: { assessments: Assessment[] })
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4" >
-                        {assessments.slice(0,10).map((assessment, index) => (
+                 {assessments.slice(-10).reverse().map((assessment, index) => (
                             <Card onClick={() => setSelectedQuiz(assessment)}
                              className="cursor-pointer hover:bg-muted/50 transition-colors" 
                             key={assessment.id} >

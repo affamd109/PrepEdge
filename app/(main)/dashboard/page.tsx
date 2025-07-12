@@ -8,13 +8,14 @@ import { SalaryRange } from "@/lib/types";
 export default async function IndustryInsightsPage() {
 
     const { isOnboarded } = await getUserOnboardingStatus();
+    if (!isOnboarded) {
+        redirect('/onboarding');
+    }
+
     const insights = await getIndustryInsights();
     
 
 
-    if (!isOnboarded) {
-        redirect('/onboarding');;
-    }
 
     //We have to serialize nextUodate cuz it contains Date() fucntion , and while passign from server comp to client , they are not serialized on their own:
     
