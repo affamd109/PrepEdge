@@ -33,7 +33,7 @@ Live website link : https://prep-edge-2-kohl.vercel.app/
 |---------------------|-------------------------------------------------|
 | **Framework**        | Next.js (For Frontend & Backend)                             |
 | **Language**         | TypeScript                                     |
-| **Styling & UI**     | TailwindCSS, Shadcn UI   |
+| **Styling & UI**     | TailwindCSS, Shadcn UI, Aceternity UI   |
 | **PDF Generation**   | html2canvas-pro, jsPDF                         |
 | **Database**         | NeonDB                                         |
 | **ORM**              | Prisma                                         |
