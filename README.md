@@ -21,7 +21,7 @@ Live website link : https://prep-edge-2-kohl.vercel.app/
   Interactive dashboards with sector-wise trends along with min , median , max salaries of trendy roles.
 
 - 📄 **One-Click PDF Exports**  
-  Download resumes PDF instantly via html2canvas-pro + jsPDF just by a click.
+  Download resume PDF instantly via html2canvas-pro + jsPDF just by a click.
 
 - 🧑‍💼 **User Authentication & Personalization**  
   Clerk for seamless login + NeonDB to persist user resumes, performance data
