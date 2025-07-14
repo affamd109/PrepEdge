@@ -18,6 +18,7 @@ import MDEditor from '@uiw/react-md-editor';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner"
+import { SparklesCore } from "@/components/ui/sparkles"
 
 
 type ResumeBuilderProps = {
@@ -168,12 +169,29 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
     return (
         <div className="space-y-4" >
 
-            <div className="flex flex-col md:flex-row justify-between items-center gap-2 ">
-                <h1 className="font-bold gradient-title text-5xl md:text-6xl">
-                    Resume Builder
-                </h1>
 
-                <div className="space-x-2" >
+                
+                <h1 className="font-bold gradient-title text-center text-5xl md:text-6xl">
+  Resume Builder
+</h1>
+
+{/* Sparkle and Gradient Section */}
+<div className="relative w-full h-16 mb-12 mt-2">
+  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] blur-sm bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500" />
+  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-500" />
+  <SparklesCore
+    background="transparent"
+    minSize={0.4}
+    maxSize={1}
+    particleDensity={1200}
+    className="w-full h-full"
+    particleColor="#FFFFFF"
+  />
+  <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+</div>
+
+
+                <div className="flex justify-end  space-x-2" >
 
 
                     <Button className="cursor-pointer" onClick={generatePDF} disabled={isGenerating}  >
@@ -191,8 +209,6 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
                                 Download Pdf
                             </>
                         )}
-
-
                     </Button>
 
                     <Button className="cursor-pointer " variant="destructive" onClick={onSubmit} 
@@ -211,9 +227,12 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
                     </Button>
 
                 </div>
-            </div>
 
-            <Tabs value={activeTab} onValueChange={setActiveTab} >
+
+
+          
+
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-4" >
                 <TabsList>
                     <TabsTrigger value="edit">Form</TabsTrigger>
                     <TabsTrigger value="preview">Markdown</TabsTrigger>
@@ -222,7 +241,7 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
                     <form className="space-y-8"  >
 
                         <div className="space-y-4" >
-                            <h3 className="text-lg font-medium" >Contact Information</h3>
+                            <h3 className="text-lg font-medium mt-5" >Contact Information</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg bg-muted/50" >
 
 
@@ -400,7 +419,7 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
                         <Button
                             variant="link"
                             type="button"
-                            className="mb-2"
+                            className="mb-2 mt-5"
                             onClick={() =>
                                 setResumeMode(resumeMode === "preview" ? "edit" : "preview")
                             }

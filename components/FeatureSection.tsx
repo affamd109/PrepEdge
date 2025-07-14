@@ -11,7 +11,7 @@ export default function FeatureSection(){
             Explore our features for career success
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl md:mx-auto" >
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto md:mx-auto" >
             {features.map((feature, index) => (
 
               <MovingBorderWrapper key={index} borderRadius="1rem" className="bg-black">

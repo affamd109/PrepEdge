@@ -207,7 +207,7 @@ export default function EntryForm({ type , entries, onChange } : EntryFormProps 
 
                         <div className="space-y-4">
 
-                            <p className="text-muted-foreground" >Write the description of your work experience :</p>
+                            <p className="text-muted-foreground mt-4 " >Write the description of your work experience :</p>
 
                             <Textarea
                             placeholder={`Description of your ${type.toLowerCase()} `}
