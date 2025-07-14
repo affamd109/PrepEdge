@@ -191,7 +191,7 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
 </div>
 
 
-                <div className="flex justify-end  space-x-2" >
+                <div className="flex justify-center md:justify-end   space-x-2" >
 
 
                     <Button className="cursor-pointer" onClick={generatePDF} disabled={isGenerating}  >
@@ -229,8 +229,6 @@ const [previewContent, setPreviewContent] = useState<string | undefined>(initial
                 </div>
 
 
-
-          
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-4" >
                 <TabsList>
